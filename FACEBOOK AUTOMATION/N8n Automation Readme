@@ -1,0 +1,177 @@
+# 🚀 AI Facebook Content Automation Agent (n8n + OpenAI + Cloudinary + Reddit + Meta Graph API)
+
+## 📌 Overview
+
+This project is a fully automated **AI-powered content creation and publishing system** built using **n8n**, **OpenAI**, **Cloudinary**, **Reddit**, and the **Facebook Graph API**.
+
+It automatically:
+
+1. Finds **viral Reddit topics**
+2. Generates **unique, engaging content** using ChatGPT
+3. Generates a **DALL·E image** based on that topic
+4. Uploads the image to **Cloudinary** to get a secure URL
+5. Cleans the output data
+6. Publishes the final post (image + caption) to your **Facebook Page**
+7. Runs **daily on schedule** without manual input
+
+This automation allows you to run a complete social media content pipeline hands‑free.
+
+---
+
+## 🧠 Features
+
+### 🔥 1. Auto‑Research Viral Topics
+
+Uses the **Reddit Public API** (free) to fetch viral posts from subreddits like:
+
+* `r/all`
+* `r/trending`
+* or any custom subreddit(s)
+
+Then picks **one** high‑engagement topic using n8n filtering logic.
+
+---
+
+### ✍️ 2. AI‑Powered Content Generation
+
+Uses **OpenAI ChatGPT** to generate:
+
+* A high‑quality caption
+* A short explanation for the image prompt
+* Social‑media‑optimized wording
+
+---
+
+### 🎨 3. AI Image Generation
+
+Uses **DALL·E 3** through the OpenAI API to generate:
+
+* High-quality
+* 1024×1024
+* Social‑friendly visuals
+
+Image is created as **binary data** for Cloudinary upload.
+
+---
+
+### ☁️ 4. Cloudinary Upload (Free CDN Image Hosting)
+
+Uploads the DALL·E image to Cloudinary and receives:
+
+* `secure_url`
+* `public_id`
+* Image metadata
+
+Secure URL is required for the Facebook Graph API.
+
+---
+
+### 🧹 5. Output Cleaning Logic
+
+A custom **Code Node** removes:
+
+* Metadata
+* Unwanted content ("your content is done" messages)
+* Markdown formatting (`**bold**`)
+
+Produces **one clean item** containing:
+
+* `image_url`
+* `caption`
+
+---
+
+### 📤 6. Auto‑Publishing to Facebook Page
+
+Uses **Facebook Graph API** to publish:
+
+* Image (uploaded URL)
+* Caption text
+
+Avoids duplicate posting by sending **a single combined item**.
+
+---
+
+### ⏰ 7. Daily Automation via Schedule Trigger
+
+A Schedule Trigger is configured using CRON:
+
+```
+0 0 9 * * *
+```
+
+Runs your automation **every day at 9:00 AM**.
+
+---
+
+## 🛠️ Tech Stack / Tools Used
+
+| Component                     | Purpose                           |
+| ----------------------------- | --------------------------------- |
+| **n8n**                       | Main automation engine            |
+| **OpenAI ChatGPT / DALL·E 3** | Content + image generation        |
+| **Reddit API (free)**         | Fetching viral topics             |
+| **Cloudinary**                | Image hosting & secure URLs       |
+| **Facebook Graph API**        | Publishing posts to Facebook Page |
+| **Code Node**                 | Cleaning + merging data           |
+
+---
+
+## 🔄 Workflow Steps
+
+1. **Schedule Trigger** – runs daily
+2. **HTTP Request (Reddit)** – fetch trending/viral post
+3. **Set / Code Node** – extract & clean the topic
+4. **OpenAI Node (ChatGPT)** – generate caption & image prompt
+5. **OpenAI Node (DALL·E 3)** – create image (binary)
+6. **HTTP Node (Cloudinary Upload)** – upload binary + store URL
+7. **Code Node (Cleaner)** – keep only caption + `secure_url`
+8. **Facebook Graph API Node** – publish post
+
+---
+
+## 📦 Output Example
+
+Final clean output sent to Facebook:
+
+```json
+{
+  "caption": "An emotional story about...",
+  "image_url": "https://res.cloudinary.com/.../image.png"
+}
+```
+
+---
+
+## ▶️ How to Run
+
+1. Import the workflow into **n8n**
+2. Add your API keys:
+
+   * OpenAI
+   * Cloudinary
+   * Facebook Page Access Token
+3. Configure the Schedule Trigger
+4. Execute once to test
+5. Turn **Workflow Active** ON
+
+---
+
+## 🧩 Future Improvements
+
+* Auto‑upload to Instagram
+* Multi‑image carousel support
+* Multi‑topic random selection
+* Hashtag generator
+
+---
+
+## 🙌 Contribute
+
+Feel free to fork, submit PRs, or open issues.
+
+---
+
+## 📄 License
+
+MIT License
