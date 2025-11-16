@@ -1,0 +1,76 @@
+An automated AI system that reads customer emails, classifies them, generates replies, and sends responses — all without human involvement.
+Designed to save businesses hours of manual support work.
+
+📌 What This Agent Does
+
+📥 Watches incoming emails
+
+🧠 Classifies messages (support, refund, product query, etc.)
+
+🤖 Routes each email to the correct specialized AI agent
+
+📚 Uses RAG + vector store to access company policies & knowledge
+
+✍️ Generates accurate, contextual replies
+
+📊 Logs outputs to Google Sheets
+
+✉️ Sends responses back through Gmail
+
+🧭 How It Works (Pipeline)
+
+Email watcher detects new messages
+
+Emails are batched for processing
+
+Classifier predicts category
+
+Specialized agent handles the email
+
+Agent retrieves business knowledge (RAG pipeline)
+
+Reply is generated and saved
+
+Google Sheets logs everything
+
+Gmail sends the final answer to the customer
+
+🔧 Tech Used
+
+LLM-based classifier
+
+Custom AI agents (support / refund / product queries)
+
+RAG (Retrieval-Augmented Generation)
+
+Vector store for company knowledge
+
+Google Sheets API
+
+Gmail API
+
+n8n / Make / automation workflows
+
+⚙️ Setup Requirements
+LLM_API_KEY=
+GMAIL_CLIENT_ID=
+GMAIL_CLIENT_SECRET=
+GSHEETS_CREDENTIALS_JSON=
+VECT_STORE_API_KEY=
+SHEET_ID=
+INBOX_EMAIL=
+
+🚀 Why Businesses Need This
+
+Saves hours of manual email replies
+
+Ensures fast, consistent customer support
+
+Reduces human mistakes
+
+Scales support without hiring more staff
+
+📬 Contact
+
+Want a custom AI agent for your business?
+your-email@domain.com
