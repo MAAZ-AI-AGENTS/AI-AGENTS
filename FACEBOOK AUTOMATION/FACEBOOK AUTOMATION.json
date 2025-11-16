@@ -1,0 +1,575 @@
+{
+  "name": "FACEBOOK AUTOMATION",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -272,
+        -512
+      ],
+      "id": "88267351-084d-4704-8c3a-f4c9232a9c20",
+      "name": "BRAIN",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "D8fmUO8hOl1bk7Il",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolThink",
+      "typeVersion": 1.1,
+      "position": [
+        -144,
+        -512
+      ],
+      "id": "4ebc641d-e97e-47b5-9898-85e5d78c627a",
+      "name": "Think"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=\nWrite a short, catchy Facebook post (max 100 words) based on the trending Reddit topic below.\n{{ $json.topic }},\n-Make it fun, relevant, and engaging. Include emojis if suitable.\n-Output ONLY the post text — no introductions, no explanations, no phrases like \"Here’s your content\" or \"Done\". Just the post text itself.",
+        "options": {
+          "systemMessage": "=#Overview\n-you are an expert content writer and your work is to create viral facebook page posts. you are very experice in content creation feild use your experience to write viral posts.\n\n#tools\n-content writter:use this tool to write viral content ask this agent to write my facebook page content.\n-think:use this tool to increase your capability to think and get actual output.\n#Rules\n-give me actual ready to publish content to include text like your content is ready."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        -224,
+        -736
+      ],
+      "id": "6c41c4f5-bdb5-45fe-8ade-2ab487a427de",
+      "name": "MANAGER AGENT"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        0,
+        -304
+      ],
+      "id": "fe5f4e66-4694-4547-bfbc-9ab2586b85ab",
+      "name": "brain",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "D8fmUO8hOl1bk7Il",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "toolDescription": "=research agent for my linkdin posts.",
+        "text": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Prompt__User_Message_', ``, 'string') }}",
+        "options": {
+          "systemMessage": "=#overview\n- you  are expert ai agent and your task is to write viral facebook page content as you are expert content  creater and has experice more than 10 years.\n\n#tools\n\n-search tool:use this tool to search viral content from different sources before writting.\n\n#Rules\n\n-Always remember before writing content research is compulsory.\n- always write viral content"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "typeVersion": 2.2,
+      "position": [
+        -16,
+        -512
+      ],
+      "id": "5e5447bb-e81a-4091-b41d-a04915179c2a",
+      "name": "CONTENT WRITTER"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolSerpApi",
+      "typeVersion": 1,
+      "position": [
+        128,
+        -304
+      ],
+      "id": "b98b10cd-d17a-46d3-9c89-ec82d820ca2b",
+      "name": "SerpAPI",
+      "credentials": {
+        "serpApi": {
+          "id": "EFoBEIadIgmI1V4V",
+          "name": "SerpApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        432,
+        -640
+      ],
+      "id": "6cd9f0d4-0b76-48af-b718-8613437ec522",
+      "name": "brain1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "D8fmUO8hOl1bk7Il",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.output }}\nThis is my facebook content i want from you that  to generate an  image prompt related to this content through which i can generate image for my cotent. and that image i will able to upload on my facebook.\n#Rule\n-write prompt of maximum 1000 words not more than this.\n-never write a prompt more than 1000 words keep prompt short and consize.\n",
+        "options": {
+          "systemMessage": "=#Overview\n-you are an expert prompt engineer and your work is that to understant my content and than generate a image prompt to create image for my content.\n\n#Rules\n-always generate image prompt realted to my content.\n-always remember that lenght of prompt should be less than1000 words.\n-never write a prompt more than 1050 words."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        352,
+        -864
+      ],
+      "id": "4faab79c-d130-484a-8a91-c6da704b5abb",
+      "name": "PROMPT WRITER"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c0805a43-c0a7-4d59-ac89-fd7ff0e706f7",
+              "name": "image prompt",
+              "value": "={{ $json.output }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        704,
+        -864
+      ],
+      "id": "8fb391c0-dcfa-4c82-b082-9344ae25be2a",
+      "name": "IMAGE prompt"
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "prompt": "={{ $json['image prompt'] }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        928,
+        -864
+      ],
+      "id": "2ffb1119-dd26-4d92-ad90-2d11ff3674ef",
+      "name": "Generate an image",
+      "credentials": {
+        "openAiApi": {
+          "id": "PvZfvKa6HzCHxrbA",
+          "name": "image"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v23.0",
+        "node": "me",
+        "edge": "photos",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "message",
+                "value": "={{ $json.caption }}"
+              },
+              {
+                "name": "url",
+                "value": "={{ $json.image_url }}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        1824,
+        -736
+      ],
+      "id": "ee21592b-3db2-4f93-8cc4-dd14f38461cb",
+      "name": "Facebook Graph API",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "8unY96ZXo5t7F1XU",
+          "name": "Facebook Graph account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.cloudinary.com/v1_1/dgfhmqimo/image/upload",
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "parameterType": "formBinaryData",
+              "name": "file",
+              "inputDataFieldName": "data"
+            },
+            {
+              "name": "upload_preset",
+              "value": "maaz.facebook"
+            },
+            {
+              "name": "folder",
+              "value": "hf-outputs"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1152,
+        -864
+      ],
+      "id": "214455f2-05db-4e7c-9a4c-7bccb28a6e8c",
+      "name": "getting secure url"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 0 9 * * *"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -944,
+        -736
+      ],
+      "id": "6ed8fcfc-bbd3-410e-89e8-491eca71b4bc",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "sendTo": "irrq68q7.a@gmail.com",
+        "subject": "Your content is published",
+        "message": "Hi! maaz your content is published on facebook page \"nextgen automation services\" you can go and view your content anytime, i hope ypu like this content.",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        2048,
+        -736
+      ],
+      "id": "38f56c3a-a55d-4973-9239-571e83006e37",
+      "name": "Send a message",
+      "webhookId": "7b1e2db4-ac49-4c52-b0ea-d6cc547df9e6",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "Ip9bb4RHP0gpkcCp",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://www.reddit.com/r/popular.json?limit=10",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -720,
+        -736
+      ],
+      "id": "ac79c539-909d-4e43-b41a-cee9a5697c73",
+      "name": "Extract trending topics"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get all Reddit posts from previous node\nconst posts = $json.data.children;\n\n// Randomly select one post from top 10 (to keep it fresh)\nconst randomPost = posts[Math.floor(Math.random() * Math.min(posts.length, 10))].data;\n\n// Return only one topic for the agent\nreturn [\n  {\n    json: {\n      topic: randomPost.title,\n      subreddit: randomPost.subreddit,\n      url: `https://www.reddit.com${randomPost.permalink}`,\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -496,
+        -736
+      ],
+      "id": "4ce3d168-7636-4cf6-9ad1-a7447b9b279f",
+      "name": "Extracting 5 topics"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        1376,
+        -736
+      ],
+      "id": "fe6f8731-1d40-4528-8338-187494d79650",
+      "name": "COMBINING DATA"
+    },
+    {
+      "parameters": {
+        "jsCode": "const imageUrl = $json.secure_url;\nconst caption = $json.output;\n\nreturn [\n  {\n    json: {\n      caption,\n      image_url: imageUrl\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1600,
+        -736
+      ],
+      "id": "a12ef4d2-9547-4b95-9f2c-c4841da91381",
+      "name": "CLEAN OUTPUT"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "BRAIN": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "MANAGER AGENT",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Think": {
+      "ai_tool": [
+        [
+          {
+            "node": "MANAGER AGENT",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "brain": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "CONTENT WRITTER",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CONTENT WRITTER": {
+      "ai_tool": [
+        [
+          {
+            "node": "MANAGER AGENT",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MANAGER AGENT": {
+      "main": [
+        [
+          {
+            "node": "PROMPT WRITER",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "COMBINING DATA",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "SerpAPI": {
+      "ai_tool": [
+        [
+          {
+            "node": "CONTENT WRITTER",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "brain1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "PROMPT WRITER",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PROMPT WRITER": {
+      "main": [
+        [
+          {
+            "node": "IMAGE prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IMAGE prompt": {
+      "main": [
+        [
+          {
+            "node": "Generate an image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate an image": {
+      "main": [
+        [
+          {
+            "node": "getting secure url",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Facebook Graph API": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "getting secure url": {
+      "main": [
+        [
+          {
+            "node": "COMBINING DATA",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Extract trending topics",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract trending topics": {
+      "main": [
+        [
+          {
+            "node": "Extracting 5 topics",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extracting 5 topics": {
+      "main": [
+        [
+          {
+            "node": "MANAGER AGENT",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "COMBINING DATA": {
+      "main": [
+        [
+          {
+            "node": "CLEAN OUTPUT",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CLEAN OUTPUT": {
+      "main": [
+        [
+          {
+            "node": "Facebook Graph API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "851e9f15-97cb-4ace-9ed0-0c30a0ece108",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "6bb703ac0e6c8af9734a818e95ab2f81fd609a9f13e687fe150bcec057a4b7c3"
+  },
+  "id": "WvHUvARtVJ5SdpJM",
+  "tags": []
+}
