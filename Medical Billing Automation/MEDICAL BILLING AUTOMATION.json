@@ -1,0 +1,1454 @@
+{
+  "name": "MEDICAL BILLING AUTOMATION",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1680,
+        336
+      ],
+      "id": "0efc1edf-aa66-4b03-8e3d-5cf8c7bd8cf3",
+      "name": "Wait",
+      "webhookId": "90273e85-5ca2-4b75-b110-e14cb3b9f6d0"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4e6e03cb-9fee-4f95-a11b-72bcb84b8b0f",
+              "leftValue": "={{ $json.finalStatus }}",
+              "rightValue": "Approved",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2176,
+        336
+      ],
+      "id": "54707953-9ec1-45dd-8eab-34857dde4d48",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "ef3202a2-a84f-465f-96db-579615b32545",
+              "leftValue": "={{ $json.patientDOB }}",
+              "rightValue": "",
+              "operator": {
+                "type": "dateTime",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "5d849ca4-7732-4993-af2e-56787174d0f0",
+              "leftValue": "={{ $json.insuranceCompany }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "719e4ca0-c098-4b5d-9809-4b94ccaa4051",
+              "leftValue": "={{ $json.insuranceID }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "04408416-cce0-4931-9b9a-d457a2dec10e",
+              "leftValue": "={{ $json.dateOfService }}",
+              "rightValue": "",
+              "operator": {
+                "type": "dateTime",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "b3bb1284-6084-49d5-bf23-86132f9ed168",
+              "leftValue": "={{ $json.diagnosisCode }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "f694c8bd-8c06-48dc-86a8-c3be384da07e",
+              "leftValue": "={{ $json.procedureCode }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "f55aec91-a4af-4dcd-bf75-f2c6f18c394b",
+              "leftValue": "={{ $json.chargeAmount }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "063a2c51-2c01-4fda-b5a4-912285e21ef8",
+              "leftValue": "={{ $json.doctorName }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "8de114e1-d42a-4877-8f9a-dc7840915aa4",
+              "leftValue": "={{ $json.patientName }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        304
+      ],
+      "id": "5a213a42-fac9-46f5-bc99-36c65ee5e63e",
+      "name": "Data Validation Check"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1RGXViBL6rkJxujoDnOoGBvNiqgqPZ00eVB0iYPXO1ZM",
+          "mode": "list",
+          "cachedResultName": "Medical Billing Customers Data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1RGXViBL6rkJxujoDnOoGBvNiqgqPZ00eVB0iYPXO1ZM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1RGXViBL6rkJxujoDnOoGBvNiqgqPZ00eVB0iYPXO1ZM/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Patient Name": "={{ $json.patientName }}",
+            "Insurance Company": "={{ $json.insuranceCompany }}",
+            "Diagnosis Code": "={{ $json.diagnosisCode }}",
+            "Date of Birth": "={{ $json.patientDOB }}",
+            "Insurance ID": "={{ $json.insuranceID }}",
+            "Date Of Service": "={{ $json.dateOfService }}",
+            "Procedure Code": "={{ $json.procedureCode }}",
+            "Charge Amount": "={{ $json.chargeAmount }}",
+            "Doctor Name": "={{ $json.doctorName }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Claim ID",
+              "displayName": "Claim ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Patient Name",
+              "displayName": "Patient Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Date of Birth",
+              "displayName": "Date of Birth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Insurance Company",
+              "displayName": "Insurance Company",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Insurance ID",
+              "displayName": "Insurance ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Date Of Service",
+              "displayName": "Date Of Service",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Diagnosis Code",
+              "displayName": "Diagnosis Code",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Procedure Code",
+              "displayName": "Procedure Code",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Charge Amount",
+              "displayName": "Charge Amount",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Doctor Name",
+              "displayName": "Doctor Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "STATUS",
+              "displayName": "STATUS",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        192,
+        224
+      ],
+      "id": "9ec768a1-1219-4ea1-a39f-40980af8ae26",
+      "name": "ADD DATA TO GOOGLE SHEETS",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "CYFtCAzbigCQvIrn",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## DATA ENTRY AND VELIDATION  \n                                                            \n **FORM TRIGGER** \n- It is used to enter patient data for making insurance claim.\n- It includes patient name, doctor name, insurance id etc.\n\n**DATA VALIDATION**\n- This node insures that all data is present no data is missing.\n\n   **GOOGLE SHEETS**\n-  This node is used to store all patient data in our google sheets",
+        "height": 720,
+        "width": 912,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -576,
+        -64
+      ],
+      "typeVersion": 1,
+      "id": "f50ddc05-88a9-40f5-b1f5-3142a364fa34",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "jsCode": "// This code simulates checking a real-world insurance eligibility API.\n// In a real n8n workflow, you would use an HTTP Request node to query the payer's API.\n\nfor (const item of items) {\n  // Generate a random number between 0 and 1.\n  const randomNumber = Math.random(); \n  \n  // 90% chance of being verified, 10% chance of failure for testing purposes.\n  if (randomNumber < 0.9) { \n    // Add a new field to the item indicating success\n    item.json.isInsuranceVerified = true;\n    item.json.verificationMessage = \"Eligible and Active\";\n  } else {\n    // Add a new field to the item indicating failure\n    item.json.isInsuranceVerified = false;\n    item.json.verificationMessage = \"Policy Inactive or Service Not Covered\";\n  }\n}\n\n// Return the modified data items\nreturn items;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        448,
+        224
+      ],
+      "id": "13b75017-cb84-4619-afe7-5cdef7db051b",
+      "name": "INSURANCE ELIGIBILITY VERIFICATION"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "e280b15f-ea16-4836-8a63-264071756acf",
+              "leftValue": "={{ $json.isInsuranceVerified }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        704,
+        224
+      ],
+      "id": "914c2d00-9ada-406e-b260-76ab78f999e5",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "errorMessage": "An Error Occured"
+      },
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        736,
+        480
+      ],
+      "id": "6918ac78-0e8e-4684-80cd-8a8d82dd3c43",
+      "name": "Stop and Error"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "93e8affb-7754-477f-8ef0-fbb4e4708742",
+              "name": "=Patient Name",
+              "value": "={{ $json[\"Patient Name\"] }}",
+              "type": "string"
+            },
+            {
+              "id": "a7571ead-6738-4819-a5d0-834b2cfce0ce",
+              "name": "=Insurance Company",
+              "value": "={{ $json[\"Insurance Company\"] }}",
+              "type": "string"
+            },
+            {
+              "id": "b2c3adcb-cd02-401d-bf17-af3d3babb108",
+              "name": "=ICD_CODE_FINAL",
+              "value": "={{ $json[\"Diagnosis Code\"] }}",
+              "type": "string"
+            },
+            {
+              "id": "c2814718-14c5-42ba-975c-d0aa8290c484",
+              "name": "=Date Of Birth",
+              "value": "={{ $json[\"Date of Birth\"] }}",
+              "type": "string"
+            },
+            {
+              "id": "f52f825e-440a-4c1c-aa01-551ef02621e6",
+              "name": "=Insurance ID",
+              "value": "={{ $json[\"Insurance ID\"] }}",
+              "type": "string"
+            },
+            {
+              "id": "047d0d2c-db17-4447-8343-658df2d37c97",
+              "name": "=Claim Date",
+              "value": "={{ $json[\"Date Of Service\"] }}",
+              "type": "string"
+            },
+            {
+              "id": "d798b252-f376-4614-b3fa-599a65568c18",
+              "name": "=CPT_CODE_FINAL",
+              "value": "={{ $json[\"Procedure Code\"] }}",
+              "type": "string"
+            },
+            {
+              "id": "dcc1ea2f-295d-4630-9731-98d49ed22921",
+              "name": "=TOTAL_CHARGE",
+              "value": "={{ $json[\"Charge Amount\"] }}",
+              "type": "number"
+            },
+            {
+              "id": "ff83a638-693d-4dd4-a35a-31bcbf75f85c",
+              "name": "=Doctor Name",
+              "value": "={{ $json[\"Doctor Name\"] }}",
+              "type": "string"
+            },
+            {
+              "id": "b9aeece1-744e-4f8c-ab0d-a84ae114e5f4",
+              "name": "=INSURACE STATUS",
+              "value": "={{ $json.isInsuranceVerified }}",
+              "type": "boolean"
+            },
+            {
+              "id": "1f64c492-b869-4473-86f0-7c887170bd6f",
+              "name": "=INSURANCE VERIFICATION",
+              "value": "={{ $json.verificationMessage }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1024,
+        208
+      ],
+      "id": "469bced7-38ab-4c6a-a6a0-a42c73a64f84",
+      "name": "Structured data"
+    },
+    {
+      "parameters": {
+        "jsCode": "for (const item of items) {\n    const data = item.json;\n    let errors = [];\n\n    // --- Check 1: ICD Code Format (Usually 3 to 7 alphanumeric characters) ---\n    // Using a common standard: check if the code is the correct length for a valid diagnosis.\n    const icdCode = data.ICD_CODE_FINAL ? data.ICD_CODE_FINAL.toString() : '';\n    if (icdCode.length < 3 || icdCode.length > 7) {\n        errors.push(\"ICD-10 Code is not between 3 and 7 characters (Scrubbing Check 1).\");\n    }\n\n    // --- Check 2: CPT Code Format (Usually 5 digits) ---\n    // CPT codes are typically 5 numerical digits.\n    const cptCode = data.CPT_CODE_FINAL ? data.CPT_CODE_FINAL.toString() : '';\n    // This regex checks for exactly 5 digits.\n    if (!/^\\d{5}$/.test(cptCode)) { \n        errors.push(\"CPT Code is not exactly 5 digits (Scrubbing Check 2).\");\n    }\n    \n    // --- Check 3: Charge Amount Check ---\n    // Ensure the total charge is a number greater than zero.\n    if (typeof data.TOTAL_CHARGE !== 'number' || data.TOTAL_CHARGE <= 0) {\n        errors.push(\"Total Billed Amount is not a valid positive number (Scrubbing Check 3).\");\n    }\n\n    // --- Final Scrubbing Decision ---\n    if (errors.length === 0) {\n        item.json.isClaimScrubbed = true;\n        item.json.scrubbingErrors = \"None\";\n    } else {\n        item.json.isClaimScrubbed = false;\n        item.json.scrubbingErrors = errors.join(\"; \"); // Combine all errors into one string\n    }\n}\n\nreturn items;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        992,
+        480
+      ],
+      "id": "40629715-cb6f-4d5a-8376-b5b26e6a5e89",
+      "name": "Claim Scrubbing"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "7722e427-3888-4c14-b2f4-a5b3db461a42",
+              "leftValue": "={{ $json.isClaimScrubbed }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1296,
+        480
+      ],
+      "id": "15009a54-268e-4362-91ca-12a609cb3c82",
+      "name": "If2"
+    },
+    {
+      "parameters": {
+        "errorMessage": "An Error Occured"
+      },
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1760,
+        496
+      ],
+      "id": "599c3595-63db-464c-9d02-6c92b547a3a7",
+      "name": "Stop and Error1"
+    },
+    {
+      "parameters": {
+        "content": "## INSURACE VALIDATION \n\n**CODE NODE** \n- I use this node to add a feild in my data that the insurace is working because i use dummy data in real life we use http request and submitt insurance id to check insurace is working or not.\n\n**TELEGRAM**\n- This node is used to tell our team that insurance is inactive if the patient insurance is inactive.\n\n**CODE NODE**\n- This node is used to check the medical code were correct or node is any digit is missing",
+        "height": 720,
+        "width": 832
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        384,
+        -64
+      ],
+      "typeVersion": 1,
+      "id": "3073db02-65a8-4791-9330-c600afa99ffc",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "## CLAIM SUBMISSION AND WAITING\n \n**HTTP NODE**\n- I used this node after if node if my code are correct then the claim is submitted if codes are wrong then our team is informed.\n\n**WAIT NODE**\n- After claim submission we wait 2 or 3 days so our claim is approved or denied.\n\n**CODE NODE**\n- I use this node so I add approved status to my request.",
+        "height": 704,
+        "width": 784
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1264,
+        -32
+      ],
+      "typeVersion": 1,
+      "id": "8dcc7ad3-1e0b-433e-9551-b7338685c51e",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "## UPDATING OUR DATABASE\n\n**IF**\n- It is used to check request is approved or denied.\n\n**GOOGLE SHEETS**\n- TO update status to approved or denied in our google sheets.\n\n**TELEGRAM**\n- If status is denied our team is informed",
+        "height": 704,
+        "width": 688,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        2096,
+        -48
+      ],
+      "typeVersion": 1,
+      "id": "47b88418-f1d3-4c7e-8313-ca7e7acd8ad4",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "sendTo": "irrq68q7.a@gmail.com",
+        "subject": "DATA MISSING",
+        "message": "your form data is missing",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        176,
+        432
+      ],
+      "id": "b5dde546-90dc-428b-a000-3c13f0d1a4bd",
+      "name": "DATA MISSING",
+      "webhookId": "b1b4203b-96b0-4cb9-857f-2f582af6515c",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "Sm7dAr8Q6YfvAjcl",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "irrq68q7.a@gmail.com",
+        "subject": "insurace denied",
+        "message": "This insurance is not active now it deactivated",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        544,
+        480
+      ],
+      "id": "6c2f1d53-0799-4881-9dcc-fe990f115b61",
+      "name": "INSURACE DEACTIVATED",
+      "webhookId": "08e7a72b-53da-4c4c-8af7-d7f5416f799f",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "Sm7dAr8Q6YfvAjcl",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "irrq68q7.a@gmail.com",
+        "subject": "INSURANCE CODE IS INVALID",
+        "message": "Provide insurance code are invalid for this insuance claim",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1600,
+        496
+      ],
+      "id": "b28d213b-5715-4578-b25a-870f79db3a77",
+      "name": "INSURANCE CODE IS INVALID",
+      "webhookId": "95af6223-071e-438a-a43e-e1a2e4f205b2",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "Sm7dAr8Q6YfvAjcl",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "for (const item of items) {\n  // Simulate claim status (20% Denied, 20% Pending, 60% Approved)\n  const statusRoll = Math.random();\n  \n  if (statusRoll < 0.2) { // 20% chance of Denial\n    item.json.finalStatus = \"Denied\";\n    item.json.denialReason = \"Code mismatch: CPT not covered for this ICD-10.\";\n    item.json.paymentAmount = 0.00;\n  } else if (statusRoll < 0.4) { // 20% chance of Pending (0.2 to 0.4)\n    item.json.finalStatus = \"Pending\";\n    item.json.denialReason = \"Currently under manual review.\";\n    item.json.paymentAmount = 0.00;\n  } else { // 60% chance of Approval (0.4 to 1.0)\n    item.json.finalStatus = \"Approved\";\n    item.json.denialReason = \"None\";\n    // Simulate payment amount (e.g., 80% of total billed)\n    item.json.paymentAmount = item.json.TOTAL_CHARGE * 0.8;\n  }\n}\n\nreturn items;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1856,
+        336
+      ],
+      "id": "7c8d9fe4-ace6-47a4-8ed0-0b3a9c02896f",
+      "name": "APPROVAL STATUS"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://my-billing-claim.free.beeceptor.com",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "Patient Name",
+              "value": "={{ $json['Patient Name'] }}"
+            },
+            {
+              "name": "Insurance Company",
+              "value": "={{ $json['Insurance Company'] }}"
+            },
+            {
+              "name": "ICD_CODE_FINAL",
+              "value": "={{ $json.ICD_CODE_FINAL }}"
+            },
+            {
+              "name": "Date Of Birth",
+              "value": "={{ $json['Date Of Birth'] }}"
+            },
+            {
+              "name": "Claim Date",
+              "value": "={{ $json['Claim Date'] }}"
+            },
+            {
+              "name": "CPT_CODE_FINAL",
+              "value": "={{ $json.CPT_CODE_FINAL }}"
+            },
+            {
+              "name": "TOTAL_CHARGES",
+              "value": "={{ $json.TOTAL_CHARGE }}"
+            },
+            {
+              "name": "DOCTER NAME",
+              "value": "={{ $json['Doctor Name'] }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        1456,
+        336
+      ],
+      "id": "86582dd7-2f13-4c17-b814-b381e444c869",
+      "name": "CLAIM SUBMISSION"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1RGXViBL6rkJxujoDnOoGBvNiqgqPZ00eVB0iYPXO1ZM",
+          "mode": "list",
+          "cachedResultName": "Medical Billing Customers Data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1RGXViBL6rkJxujoDnOoGBvNiqgqPZ00eVB0iYPXO1ZM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1RGXViBL6rkJxujoDnOoGBvNiqgqPZ00eVB0iYPXO1ZM/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "STATUS": "={{ $json.finalStatus }}"
+          },
+          "matchingColumns": [
+            "STATUS"
+          ],
+          "schema": [
+            {
+              "id": "Claim ID",
+              "displayName": "Claim ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Patient Name",
+              "displayName": "Patient Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Date of Birth",
+              "displayName": "Date of Birth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Insurance Company",
+              "displayName": "Insurance Company",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Insurance ID",
+              "displayName": "Insurance ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Date Of Service",
+              "displayName": "Date Of Service",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Diagnosis Code",
+              "displayName": "Diagnosis Code",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Procedure Code",
+              "displayName": "Procedure Code",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Charge Amount",
+              "displayName": "Charge Amount",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Doctor Name",
+              "displayName": "Doctor Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "STATUS",
+              "displayName": "STATUS",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2352,
+        240
+      ],
+      "id": "2626229c-eed2-4152-bbc9-b663c14869c5",
+      "name": "UPDATING DATABASE",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "CYFtCAzbigCQvIrn",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1RGXViBL6rkJxujoDnOoGBvNiqgqPZ00eVB0iYPXO1ZM",
+          "mode": "list",
+          "cachedResultName": "Medical Billing Customers Data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1RGXViBL6rkJxujoDnOoGBvNiqgqPZ00eVB0iYPXO1ZM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1RGXViBL6rkJxujoDnOoGBvNiqgqPZ00eVB0iYPXO1ZM/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "STATUS": "Denied"
+          },
+          "matchingColumns": [
+            "STATUS"
+          ],
+          "schema": [
+            {
+              "id": "Claim ID",
+              "displayName": "Claim ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Patient Name",
+              "displayName": "Patient Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Date of Birth",
+              "displayName": "Date of Birth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Insurance Company",
+              "displayName": "Insurance Company",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Insurance ID",
+              "displayName": "Insurance ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Date Of Service",
+              "displayName": "Date Of Service",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Diagnosis Code",
+              "displayName": "Diagnosis Code",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Procedure Code",
+              "displayName": "Procedure Code",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Charge Amount",
+              "displayName": "Charge Amount",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Doctor Name",
+              "displayName": "Doctor Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "STATUS",
+              "displayName": "STATUS",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2336,
+        464
+      ],
+      "id": "74428ffb-43e6-47be-9d4a-227f10469dea",
+      "name": "UPDATING DATABASE1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "CYFtCAzbigCQvIrn",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "irrq68q7.a@gmail.com",
+        "subject": "claim denied",
+        "message": "your claim is denied and it is not approved so check your insurace data and details",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        2512,
+        464
+      ],
+      "id": "fe126bc6-0f22-48dc-99df-fdcb0518f5fe",
+      "name": "Send a message",
+      "webhookId": "e60ff073-de10-4392-afd7-dfc53bde6d9d",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "Sm7dAr8Q6YfvAjcl",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "errorMessage": "an error occured"
+      },
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        2672,
+        384
+      ],
+      "id": "5a22ded3-b403-4db8-aa2e-4e92cd7a6878",
+      "name": "Stop and Error2"
+    },
+    {
+      "parameters": {
+        "errorMessage": "INVALID DATA"
+      },
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        16,
+        480
+      ],
+      "id": "0b83f609-a2b4-4ab7-907c-5908eb2ddc93",
+      "name": "Stop and Error4"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "e974d6c1-403a-4503-af8b-451ff15cbc1c",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -560,
+        304
+      ],
+      "id": "039084d5-8dd1-4af1-80f2-2d5ba91cc9ba",
+      "name": "Webhook",
+      "webhookId": "e974d6c1-403a-4503-af8b-451ff15cbc1c"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "50743633-4a5d-4167-8499-3f1cea254f49",
+              "name": "PATIENT-DATA",
+              "value": "={{ $json.body }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -368,
+        304
+      ],
+      "id": "d14e542b-3970-4ae6-9a02-e9d4e7c73f2a",
+      "name": "Extract data"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get the PATIENT-DATA string from webhook\nconst patientDataString = $input.first().json[\"PATIENT-DATA\"];\n\n// Parse the JSON string into an object\nconst patientData = JSON.parse(patientDataString);\n\n// Return the parsed data in a format n8n can use\nreturn [\n  {\n    json: {\n      patientName: patientData.patientName,\n      patientDOB: patientData.patientDOB,\n      insuranceCompany: patientData.insuranceCompany,\n      insuranceID: patientData.insuranceID,\n      dateOfService: patientData.dateOfService,\n      diagnosisCode: patientData.diagnosisCode,\n      procedureCode: patientData.procedureCode,\n      chargeAmount: patientData.chargeAmount,\n      doctorName: patientData.doctorName,\n      additionalNotes: patientData.additionalNotes || \"\"\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -192,
+        304
+      ],
+      "id": "28714509-a31f-463e-8f15-ee3cca264010",
+      "name": "Code in JavaScript"
+    }
+  ],
+  "pinData": {
+    "CLAIM SUBMISSION": [
+      {
+        "json": {
+          "data": "Hey ya! Great to see you here. Btw, nothing is configured for this request path. Create a rule and start building a mock API."
+        }
+      }
+    ],
+    "Webhook": [
+      {
+        "json": {
+          "headers": {
+            "host": "apps.maazautomations.uk",
+            "x-real-ip": "162.158.108.81",
+            "x-forwarded-for": "110.93.207.214, 162.158.108.81",
+            "x-forwarded-proto": "https",
+            "x-n8n-forwarded-host": "apps.maazautomations.uk",
+            "x-n8n-forwarded-proto": "https",
+            "connection": "upgrade",
+            "content-length": "259",
+            "sec-fetch-dest": "empty",
+            "referer": "https://mediclaim.lovable.app/",
+            "priority": "u=1, i",
+            "accept-language": "en-US,en;q=0.9",
+            "cf-ray": "9a99d89d99adfcea-SIN",
+            "accept-encoding": "gzip, br",
+            "sec-ch-ua-platform": "\"Windows\"",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Chromium\";v=\"142\", \"Google Chrome\";v=\"142\", \"Not_A Brand\";v=\"99\"",
+            "content-type": "text/plain",
+            "sec-ch-ua-mobile": "?0",
+            "accept": "*/*",
+            "origin": "https://mediclaim.lovable.app",
+            "sec-fetch-site": "cross-site",
+            "sec-fetch-mode": "no-cors",
+            "cdn-loop": "cloudflare; loops=1",
+            "cf-connecting-ip": "110.93.207.214",
+            "cf-ipcountry": "PK",
+            "cf-visitor": "{\"scheme\":\"https\"}"
+          },
+          "params": {},
+          "query": {},
+          "body": "{\"patientName\":\"maaz\",\"patientDOB\":\"2025-12-01\",\"insuranceCompany\":\"blue cross\",\"insuranceID\":\"bc-18345673\",\"dateOfService\":\"2025-12-01\",\"diagnosisCode\":\"G61.67\",\"procedureCode\":\"99317\",\"chargeAmount\":99.99,\"doctorName\":\"DR.ROBERT JUNES\",\"additionalNotes\":\"\"}",
+          "webhookUrl": "https://apps.maazautomations.uk/webhook-test/e974d6c1-403a-4503-af8b-451ff15cbc1c",
+          "executionMode": "test"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "APPROVAL STATUS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "UPDATING DATABASE",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "UPDATING DATABASE1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Data Validation Check": {
+      "main": [
+        [
+          {
+            "node": "ADD DATA TO GOOGLE SHEETS",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "DATA MISSING",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ADD DATA TO GOOGLE SHEETS": {
+      "main": [
+        [
+          {
+            "node": "INSURANCE ELIGIBILITY VERIFICATION",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "INSURANCE ELIGIBILITY VERIFICATION": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Structured data",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "INSURACE DEACTIVATED",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured data": {
+      "main": [
+        [
+          {
+            "node": "Claim Scrubbing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claim Scrubbing": {
+      "main": [
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "node": "CLAIM SUBMISSION",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "INSURANCE CODE IS INVALID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "INSURACE DEACTIVATED": {
+      "main": [
+        [
+          {
+            "node": "Stop and Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "INSURANCE CODE IS INVALID": {
+      "main": [
+        [
+          {
+            "node": "Stop and Error1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "APPROVAL STATUS": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CLAIM SUBMISSION": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "UPDATING DATABASE": {
+      "main": [
+        []
+      ]
+    },
+    "UPDATING DATABASE1": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        [
+          {
+            "node": "Stop and Error2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "DATA MISSING": {
+      "main": [
+        [
+          {
+            "node": "Stop and Error4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Extract data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract data": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Data Validation Check",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "4498106f-7d45-451e-a417-966cc4620f44",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e330277f398a24213965ba9fdf565efd692d9d400bf2d6d9176e329a9c4b4b98"
+  },
+  "id": "hm4eRC8GfabdJzpC",
+  "tags": []
+}
